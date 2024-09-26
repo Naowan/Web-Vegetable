@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin       # เปลี่ยนเป็นชื่อผู้ใช้ฐานข้อมูลของคุณ
+      POSTGRES_PASSWORD: 123456   # เปลี่ยนเป็นรหัสผ่านของคุณ
+      POSTGRES_DB: vegetable_db       # เปลี่ยนเป็นชื่อฐานข้อมูลของคุณ
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 6410110282@psu.ac.th   # เปลี่ยนเป็นอีเมลที่คุณต้องการใช้ล็อกอิน pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: admin            # เปลี่ยนเป็นรหัสผ่านสำหรับ pgAdmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
